@@ -12,12 +12,6 @@ app.use(cors());
 
 app.use(express.json());
 
-
-
-
-app.get("/",async(req,res)=>{
-    res.send("Hii")
-})
 app.get("/users",async(req,res)=>{
     const email = req.query.email;
     const password = req.query.password;
