@@ -16,22 +16,24 @@ app.get("/users",async(req,res)=>{
     const email = req.query.email;
     const password = req.query.password;
     const users = await User.findOne({email})
-    console.log(users)
     if(typeof(users)==="undefined"){
         res.send("User Not found")
     }else{
-        if(await bcrypt.compare(password,users.password)){
-           
-            var token = await jwt.sign({ id: users._id }, process.env.SECRET, {});
-            const _id = users._id
-            await User.updateOne({_id},{ $set: {token: token}})
-            res.cookie("token",token,{
-                httpOnly:true
-            })
-           
-            res.send(users)
-        }else{
-            res.send("Invalid Password")
+        
+        try{
+            if(await bcrypt.compare(password,users.password)){
+                var token = await jwt.sign({ id: users._id }, process.env.SECRET, {});
+                const _id = users._id
+                await User.updateOne({_id},{ $set: {token: token}})
+                res.cookie("token",token,{
+                    httpOnly:true
+                })
+                res.send(users)
+            }else{
+                res.send("Invalid Password")
+            }
+        }catch(e){
+            res.send("Something Went Wrong!!")
         }
     }
 })
