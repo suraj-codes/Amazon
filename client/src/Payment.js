@@ -142,7 +142,7 @@ getCoordintes();
       console.log(error.message);
     }
 
-console.log(Cookies.get())
+console.log(Cookies.get("token"))
 
   //   // do all the fancy stripe stuff...
   //   event.preventDefault();

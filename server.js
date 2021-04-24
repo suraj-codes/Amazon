@@ -26,7 +26,7 @@ app.get("/users",async(req,res)=>{
                 const _id = users._id
                 await User.updateOne({_id},{ $set: {token: token}})
                
-                res.send(users)
+                res.send({users,token})
             }else{
                 res.send("Invalid Password")
             }

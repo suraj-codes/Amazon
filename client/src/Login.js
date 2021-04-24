@@ -16,16 +16,15 @@ function Login() {
             if(typeof(res.data)==="string"){
                 alert(res.data)
             }else{
-                
                 Cookies.set("token",res.data.token)
                 history.push("/")
 
                 dispatch({
                     type: "SET_USER",
                     user: {
-                      id: res.data._id,
-                      name: res.data.name,
-                      email: res.data.email,
+                      id: res.data.users._id,
+                      name: res.data.users.name,
+                      email: res.data.users.email,
                     },
                   });
             }
