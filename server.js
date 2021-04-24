@@ -58,7 +58,7 @@ app.post("/register",async(req,res)=>{
 })
 
 
-app.post("/stripe/charge", async (req, res) => {
+app.post("/stripe/charge",cors(), async (req, res) => {
     let { amount, id } = req.body;
     try {
       const payment = await stripe.paymentIntents.create({
