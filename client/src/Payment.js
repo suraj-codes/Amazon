@@ -7,7 +7,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "./reducer";
 import axios from "./axios";
-
+import Cookies from 'js-cookie'
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
   const [addr,setAddr] = useState({})
@@ -24,7 +24,8 @@ function Payment() {
 
   useEffect(async() => {
     if(!user){
-      const ver = await axios.get("/ver")
+      const token = Cookies.get("token")
+      const ver = await axios.get("/ver",{params:{token}})
       if(typeof(ver.data)=="string"){
         console.log("NO");
       }else{
@@ -40,99 +41,18 @@ function Payment() {
       };
     }
     // generate the special stripe secret which allows us to charge a customer
-    const getClientSecret = async () => {
-      const response = await axios({
-        method: "post",
-        // Stripe expects the total in a currencies subunits
-        url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
-      });
-      setClientSecret(response.data.clientSecret);
-    };
+    // const getClientSecret = async () => {
+    //   const response = await axios.post(`/payments/create?total=${getBasketTotal(basket) * 100}`);
+    //   setClientSecret(response.data.clientSecret);
+    // };
 
-    getClientSecret();
-  }, [basket,user]);
-
-
-  const handleSubmit = async (event) => {
-    setProcessing(true);
-    event.preventDefault();
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: elements.getElement(CardElement),
-    });
-
-    if (!error) {
-      try {
-        const { id } = paymentMethod;
-        const amount = Math.floor(getBasketTotal(basket))
-        const response = await axios.post(
-          "/stripe/charge",
-          {
-            amount,
-            id,
-          }
-        );
-        if (response.data.success) {
-          const id=user.id
-          alert("Order Placed!!")
-          axios.post("/orders",{id,basket}).then((res)=>{console.log("SUCCESS");}).catch((e)=>{console.log(e)})
-          history.replace("/orders")
-          dispatch({
-                    type: "EMPTY_BASKET",
-                  });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      //send token to backend here
-    } else {
-      console.log(error.message);
-    }
+    // getClientSecret();
 
 
 
-  //   // do all the fancy stripe stuff...
-  //   event.preventDefault();
-  //   setProcessing(true);
 
-  //   const payload = await stripe
-  //     .confirmCardPayment(clientSecret, {
-  //       payment_method: {
-  //         card: elements.getElement(CardElement),
-  //       },
-  //     })
-  //     .then((paymentIntent) => {
-  //       // paymentIntent = payment confirmation
-  //       console.log("👱", paymentIntent);
-  //       // db.collection("users")
-  //       //   .doc(user?._id)
-  //       //   .collection("orders")
-  //       //   .doc(paymentIntent.id)
-  //       //   .set({
-  //       //     basket: basket,
-  //       //     amount: paymentIntent.amount,
-  //       //     created: paymentIntent.created,
-  //       //   });
 
-  //       setSucceeded(true);
-  //       setError(null);
-  //       setProcessing(false);
-
-  //       dispatch({
-  //         type: "EMPTY_BASKET",
-  //       });
-
-  //       history.replace("/orders");
-  //     });
-   };
-
-  const handleChange = (event) => {
-    // Listen for changes in the CardElement
-    // and display any errors as the customer types their card details
-    setDisabled(event.empty);
-    setError(event.error ? event.error.message : "");
-  };
-
+    
 
 
   // Step 1: Get user coordinates
@@ -183,7 +103,88 @@ function getCity(coordinates) {
 }
 
 getCoordintes();
+  }, [basket,user]);
 
+
+  const handleSubmit = async (event) => {
+    setProcessing(true);
+    event.preventDefault();
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+    });
+
+    if (!error) {
+      try {
+        const { id } = paymentMethod;
+        const amount = Math.floor(getBasketTotal(basket))
+        const response = await axios.post(
+          "/stripe/charge",
+          {
+            amount:amount*100,
+            id,
+          }
+        );
+        if (response.data.success) {
+          const id=user.id
+          alert("Order Placed!!")
+          axios.post("/orders",{id,basket}).then((res)=>{console.log("SUCCESS");}).catch((e)=>{console.log(e)})
+          history.replace("/orders")
+          dispatch({
+                    type: "EMPTY_BASKET",
+                  });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      //send token to backend here
+    } else {
+      console.log(error.message);
+    }
+
+console.log(Cookies.get())
+
+  //   // do all the fancy stripe stuff...
+  //   event.preventDefault();
+  //   setProcessing(true);
+
+  //   const payload = await stripe
+  //     .confirmCardPayment(clientSecret, {
+  //       payment_method: {
+  //         card: elements.getElement(CardElement),
+  //       },
+  //     })
+  //     .then((paymentIntent) => {
+  //       // paymentIntent = payment confirmation
+  //       console.log("👱", paymentIntent);
+  //       // db.collection("users")
+  //       //   .doc(user?._id)
+  //       //   .collection("orders")
+  //       //   .doc(paymentIntent.id)
+  //       //   .set({
+  //       //     basket: basket,
+  //       //     amount: paymentIntent.amount,
+  //       //     created: paymentIntent.created,
+  //       //   });
+
+  //       setSucceeded(true);
+  //       setError(null);
+  //       setProcessing(false);
+
+  //       dispatch({
+  //         type: "EMPTY_BASKET",
+  //       });
+
+  //       history.replace("/orders");
+  //     });
+   };
+
+  const handleChange = (event) => {
+    // Listen for changes in the CardElement
+    // and display any errors as the customer types their card details
+    setDisabled(event.empty);
+    setError(event.error ? event.error.message : "");
+  };
 
 
   return (
@@ -244,7 +245,8 @@ getCoordintes();
                   prefix={"$"}
                 />
                 <button onClick={processing || disabled || succeeded}>
-                  <span>{processing ? <p>Processing...</p> : "Buy Now"}</span>
+                <span> {processing?<p>processing....</p> :"Buy Now"}</span>
+                  
                 </button>
               </div>
 

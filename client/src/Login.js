@@ -3,6 +3,7 @@ import './Login.css'
 import { Link, useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function Login() {
     
@@ -15,6 +16,8 @@ function Login() {
             if(typeof(res.data)==="string"){
                 alert(res.data)
             }else{
+                
+                Cookies.set("token",res.data.token)
                 history.push("/")
 
                 dispatch({

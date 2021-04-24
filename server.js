@@ -25,9 +25,7 @@ app.get("/users",async(req,res)=>{
                 var token = await jwt.sign({ id: users._id }, process.env.SECRET, {});
                 const _id = users._id
                 await User.updateOne({_id},{ $set: {token: token}})
-                res.cookie("token",token,{
-                    httpOnly:true
-                })
+               
                 res.send(users)
             }else{
                 res.send("Invalid Password")
@@ -60,7 +58,7 @@ app.post("/register",async(req,res)=>{
 })
 
 
-app.post("/stripe/charge", cors(), async (req, res) => {
+app.post("/stripe/charge", async (req, res) => {
     let { amount, id } = req.body;
     try {
       const payment = await stripe.paymentIntents.create({
@@ -77,7 +75,7 @@ app.post("/stripe/charge", cors(), async (req, res) => {
         success: true,
       });
     } catch (error) {
-      console.log("failed");
+      console.log(error);
       res.json({
         message: "Payment Failed",
         success: false,
@@ -107,11 +105,11 @@ app.get("/orders",async(req,res)=>{
 })
 
 app.get("/ver",async(req,res)=>{
-    const str = req.headers.cookie
-    if(!str){
+    const token = req.query.token
+    if(!token){
         res.send("No String")
     }else{
-        const ver = await jwt.verify(str.slice(6),process.env.SECRET)
+        const ver = await jwt.verify(token,process.env.SECRET)
         const users = await User.findOne({_id:ver.id})
         res.send(users)
     }

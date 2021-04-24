@@ -4,16 +4,16 @@ import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Link,useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
-import { useCookies } from "react-cookie";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const Header=()=> {
   const [{ basket, user }, dispatch] = useStateValue();
   const history = useHistory()
   
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const handleAuthenticaton = async() => {
     if (user) {
+      Cookies.remove("token")
       dispatch({
         type: "SET_USER",
         user: null

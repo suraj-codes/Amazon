@@ -3,18 +3,17 @@ import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Product from "./Product";
 import { useStateValue } from "./StateProvider";
-
+import Cookies from "js-cookie";
 function Home() {
   const [products,setProducts] = useState([])
   const [{ basket, user }, dispatch] = useStateValue();
   useEffect(async() => { 
     if(!user){
-      const ver = await axios.get("/ver")
+      const token = Cookies.get("token")
+      const ver = await axios.get("/ver",{params:{token}})
       if(typeof(ver.data)=="string"){
         
       }else{
-        
-          
         dispatch({
           type: "SET_USER",
           user: {
