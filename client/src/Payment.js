@@ -119,7 +119,7 @@ getCoordintes();
         const { id } = paymentMethod;
         const amount = Math.floor(getBasketTotal(basket))
         const response = await axios.post(
-          "https://surajcodesamazon.herokuapp.com//stripe/charge",
+          "https://surajcodesamazon.herokuapp.com/stripe/charge",
           {
             amount:amount*100,
             id,
