@@ -1,6 +1,6 @@
 # Amazon Clone
 # Sceenshots(Desktop)
-![create](https://i.ibb.co/qWmPwrm/Screenshot-17.png)
+![create](https://i.ibb.co/qWmPwrm/Screenshot-17.png {width=40px height=400px})
 ![login](https://i.ibb.co/9ZFZfRt/Screenshot-16.png)
 ![Home](https://i.ibb.co/zfBMJFY/Screenshot-18.png)
 ![cart](https://i.ibb.co/VtXKzxh/Screenshot-19.png)
