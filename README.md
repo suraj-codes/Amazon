@@ -1,4 +1,4 @@
-![altText](https://ibb.co/SPTrdMY)
+![altText](https://i.ibb.co/zrcJ7B9/5718897981-10faa45ac3-b-640x624-1.jpg)
 # Amazon Clone
 
 Amazon clone using MERN stack with cart, payment processing and Authentication Functiionality.
