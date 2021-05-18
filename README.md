@@ -7,6 +7,7 @@ Amazon clone using MERN stack with cart, payment processing and Authentication F
 
 ```bash
 npm install stripe
+npm install redux
 ```
 
 ## Visit Clone
