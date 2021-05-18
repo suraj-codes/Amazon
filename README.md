@@ -5,13 +5,8 @@
 <img src="https://i.ibb.co/6scPdKy/Screenshot-20.png" width=400/>       <img src="https://i.ibb.co/fnCMNBV/Screenshot-21.png" width=400/>
 
 # Sceenshots(Mobile)
-<img src="https://i.ibb.co/GdgYMLZ/Screenshot-20210518-201337-Chrome.jpg" width=200 height=400/>
-![Create Account](https://i.ibb.co/GdgYMLZ/Screenshot-20210518-201337-Chrome.jpg)
-![Login](https://i.ibb.co/Dpk5w0S/Screenshot-20210518-201335-Chrome.jpg)
-![Home](https://i.ibb.co/3cFWMXs/Screenshot-20210518-201404-Chrome.jpg)
-![Cart](https://i.ibb.co/DbMkPT5/Screenshot-20210518-201445-Chrome.jpg)
-![Basket](https://i.ibb.co/5T9sVwN/Screenshot-20210518-201414-Chrome.jpg)
-![Orders](https://i.ibb.co/Df0XNQH/Screenshot-20210518-201506-Chrome.jpg)
+<img src="https://i.ibb.co/GdgYMLZ/Screenshot-20210518-201337-Chrome.jpg" width=300 height=400/>        <img src="https://i.ibb.co/Dpk5w0S/Screenshot-20210518-201335-Chrome.jpg" width=300 height=400/>        <img src="https://i.ibb.co/3cFWMXs/Screenshot-20210518-201404-Chrome.jpg" width=300 height=400/>        
+<img src="https://i.ibb.co/DbMkPT5/Screenshot-20210518-201445-Chrome.jpg" width=300 height=400/>        <img src="https://i.ibb.co/5T9sVwN/Screenshot-20210518-201414-Chrome.jpg" width=300 height=400/>        <img src="https://i.ibb.co/Df0XNQH/Screenshot-20210518-201506-Chrome.jpg" width=300 height=400/>
 # Description
 
 Amazon clone using MERN stack with cart, payment processing and Authentication Functiionality.
