@@ -1,5 +1,5 @@
 # Amazon Clone
-#Sceenshots(Desktop)
+# Sceenshots(Desktop)
 ![create](https://i.ibb.co/qWmPwrm/Screenshot-17.png)
 ![login](https://i.ibb.co/9ZFZfRt/Screenshot-16.png)
 ![Home](https://i.ibb.co/zfBMJFY/Screenshot-18.png)
@@ -7,7 +7,7 @@
 ![basket](https://i.ibb.co/6scPdKy/Screenshot-20.png)
 ![orders](https://i.ibb.co/fnCMNBV/Screenshot-21.png)
 
-#Sceenshots(Mobile)
+# Sceenshots(Mobile)
 ![Create Account](https://i.ibb.co/GdgYMLZ/Screenshot-20210518-201337-Chrome.jpg)
 ![Login](https://i.ibb.co/Dpk5w0S/Screenshot-20210518-201335-Chrome.jpg)
 ![Home](https://i.ibb.co/3cFWMXs/Screenshot-20210518-201404-Chrome.jpg)
